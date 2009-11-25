@@ -12,7 +12,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 
-class Imagi  {
+public class Imagi  {
 
 	BufferedImage img, img_output;
 	int imgCols;
