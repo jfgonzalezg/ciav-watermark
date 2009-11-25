@@ -16,6 +16,7 @@ class Imagi  {
 
 	BufferedImage img, img_output;
 	int imgCols;
+	int aaaaa;
 	int imgRows;
 	int Rgb[][][];
 	int vect[];
