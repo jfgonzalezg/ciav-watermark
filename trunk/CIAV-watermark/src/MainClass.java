@@ -4,7 +4,7 @@ import java.awt.font.NumericShaper;
 public class MainClass {
 
 	static String NumeImag = "lena.jpg";
-	int i=0;
+	
 	public static void main(String[] args) {
 		
 		
