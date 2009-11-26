@@ -2,6 +2,8 @@
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Arrays;
+
 import javax.imageio.ImageIO;
 
 
@@ -52,10 +54,16 @@ public class Imagi  {
 		inverseXformPlane(redPlane);
 		insertPlane(working3D,redPlane,3);
 
-		Dct = copyToInt(working3D);
+		Dct = copyToInt(working3D);		
+		
+		creazaImagine(Dct);
+	}
 
+	private void creazaImagine(int[][][] Dct) {
+		
 		OneDim = convertToOneDim(Dct, imgCols, imgRows);
 		//	clipTo255();
+		
 		int k=0;
 		for(int i=0; i < imgRows; i++)
 		{
@@ -73,13 +81,40 @@ public class Imagi  {
 			e.printStackTrace();
 		}
 	}
+	
+	public void start2(){
+		int[][][] Dct = new int[imgCols][imgRows][4];
+
+		double[][][] working3D = copyToDouble(Rgb);
+		double[][] redPlane = extractPlane(working3D,1);
+		redPlane = extractPlane(working3D,1);
+		//Do DCT 
+		forwardXformPlane(redPlane);
+		//Insert the color plane back into the 3D array. 
+		insertPlane(working3D,redPlane,1);
+
+		redPlane = extractPlane(working3D,2);
+		//Do DCT 
+		forwardXformPlane(redPlane);
+		//Insert the color plane back into the 3D array. 
+		insertPlane(working3D,redPlane,2);
+
+		redPlane = extractPlane(working3D,3);
+		//Do DCT 
+		forwardXformPlane(redPlane);
+		//Insert the color plane back into the 3D array. 
+		insertPlane(working3D,redPlane,3);
+		
+		Dct = copyToInt(working3D);
+		creazaImagine(Dct);
+	}
 
 	public void Ima(int col, int row)
 	{
 		Rgb = new int[col][row][4];
 		vect = new int[col*row];
 		img_output = new BufferedImage(col, row, 1);
-		zigzag = makeZigZagMatrix();
+		//zigzag = makeZigZagMatrix();
 	}
 
 	public void loadImage(String imag) {
@@ -164,6 +199,11 @@ public class Imagi  {
 				double[][] the8x8Plane = 
 					get8x8Block(plane,segRow,segCol);
 				forwardXform8x8Block(the8x8Plane);
+			
+			//	double[][] temp = the8x8Plane;
+				// cream un oob ZigZag
+			//	the8x8Plane=ZigZag(temp);
+				
 				insert8x8Block(plane,the8x8Plane,segRow,segCol);
 			}//end inner loop
 		}//end outer loop
@@ -511,26 +551,31 @@ public class Imagi  {
     /*creeaza coeficientii mat. zig-zag in zigzag[][] 
     pe care ii foloseste in zigZag() pentru a ordona coef 
     mat 8*8 in zig zag */
-    public int[][] makeZigZagMatrix() {
-        int[][] zz = new int[N][N];
-        int zval=0;
-        int zval2=N*(N-1)/2;
+    private static double[][] makeZigZagMatrix(double[] imput) {
+		
+		// initializam N ca radical din lungimea vectorului de intrare
+		// se poate initializa direct cu 8 pentru matrici de 8x8
+		int N = (int)Math.sqrt(imput.length);
+		
+		double[][] zz = new double[N][N];
+        int index1=0;
+        int index2=N*(N-1)/2;       
         int i,j;
         for (int k=0;k<N;k++) {
           if (k%2==0) {
             i=0;
             j=k;
             while (j>-1) {
-              zz[i][j]=zval;
-              zval++;
+              zz[i][j]=imput[index1];
+              index1++;
               i++;
               j--;
             }
             i=N-1;
             j=k;
             while (j<N) {
-              zz[i][j]=zval2;
-              zval2++;
+              zz[i][j]=imput[index2];
+              index2++;
               i--;
               j++;
             }
@@ -539,16 +584,16 @@ public class Imagi  {
             i=k;
             j=0;
             while (i>-1) {
-              zz[i][j]=zval;
-              zval++;
+              zz[i][j]=imput[index1];
+              index1++;
               j++;
               i--;
             }
             i=k;
             j=N-1;
             while (i<N) {
-              zz[i][j]=zval2;
-              zval2++;
+              zz[i][j]=imput[index2];
+              index2++;
               i++;
               j--;
             }
@@ -556,6 +601,40 @@ public class Imagi  {
         }
         return zz;
     }
+
+    public static double[][] ZigZag(double[][] imput){		
+		
+    	double[][]output = new double[8][8]; 
+		double[]temp = new double[64];
+		
+		// copiem matricea de imput intr-un vector
+		temp = convert2dTo1d(imput);
+		
+		// ordonam coeficientii matricei 8x8 in ordine crescatoare
+		Arrays.sort(temp);
+		//afiseazaArray1D(temp);
+		
+		// creem matricea de output, cu coeficientii in zig-zag din vectorul temp care este sortat
+		output = makeZigZagMatrix(temp);
+		//afiseazaArray2D(output);
+		
+		return output;		
+	}
+
+    public static double[] convert2dTo1d(double[][] imput){
+		
+		int k=0;
+		double[] temp = new double[imput.length * imput.length] ;
+		for (int i=0; i< 8; i++)
+		{
+			for (int j=0; j< 8; j++)
+			{
+				temp[k] = imput[i][j];	
+				k++;
+			}
+		}
+		return temp;		
+	}
 
 
 }//sfarsitul clasei
