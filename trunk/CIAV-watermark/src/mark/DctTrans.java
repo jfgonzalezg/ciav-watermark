@@ -1,3 +1,4 @@
+package mark;
 /*File DctTrans.java
 
 THIS VERSION IS OPTIMIZED FOR USE WITH 8x8 IMAGES.

@@ -1,3 +1,4 @@
+package mark;
 import java.awt.Canvas;
 import java.awt.Frame;
 import java.awt.Graphics;
