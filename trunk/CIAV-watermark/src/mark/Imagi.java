@@ -25,9 +25,7 @@ public class Imagi  {
 
 	public void start1(){
 		int[][][] Dct = new int[imgCols][imgRows][4];
-		
 				
-		
 		double[][][] working3D = copyToDouble(Rgb);
 		double[][] redPlane = extractPlane(working3D,1);
 		redPlane = extractPlane(working3D,1);
