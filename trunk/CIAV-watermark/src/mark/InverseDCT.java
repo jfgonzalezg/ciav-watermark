@@ -1,5 +1,5 @@
 package mark;
-/*File InverseDCT02.java
+/*File InverseDCT.java
 Copyright 2006, R.G.Baldwin
 Rev 01/19/06
 
@@ -37,7 +37,7 @@ later due to the use of static import of Math class.
 **********************************************************/
 import static java.lang.Math.*;
 
-public class InverseDCT02{
+public class InverseDCT{
 
   public static void transform(double[] y,double[] x){
     
@@ -174,4 +174,4 @@ public class InverseDCT02{
     }//end else
   }//end transform method
   //-----------------------------------------------------//
-}//end class InverseDCT02
+}//end class InverseDCT

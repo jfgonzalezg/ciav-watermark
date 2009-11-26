@@ -1,56 +1,10 @@
 package mark;
-/*File ForwardDCT02.java
-Copyright 2006, R.G.Baldwin
-Rev 01/19/06
 
-THIS VERSION IS OPTIMIZED FOR USE WITH 8x8 IMAGES.
-
-See ForwardDCT01 for a general purpose version that works
-for images of different sizes.  This version will also 
-work with images of any size, but it is optimized for use
-with 8x8-pixel images.
-
-When transforming an 8x8-pixel image, this version uses an 
-8x8 cosine lookup table instead of calling the cos 
-function.  Otherwise, it calls the cosine function during
-each iteration.  It is probably faster to use the lookup
-table than it is to call the cosine function.
-
-The static method named transform performs a forward 
-Discrete Cosine Transform (DCT) on an incoming series
-and returns the DCT spectrum.
-
-See http://en.wikipedia.org/wiki/Discrete_cosine_transform
-#DCT-II and http://rkb.home.cern.ch/rkb/AN16pp/node61.html
-for background on the DCT.
-
-This formulation is from 
-http://www.cmlab.csie.ntu.edu.tw/cml/dsp/training/
-coding/transform/dct.html
-
-
-Incoming parameters are:
-  double[] x - incoming real data
-  double[] y - outgoing real data
-
-Tested using J2SE 5.0 under WinXP.  Requires J2SE 5.0 or
-later due to the use of static import of Math class.
-**********************************************************/
 import static java.lang.Math.*;
 
-public class ForwardDCT02{
+public class ForwardDCT{
 
-  //Enable the following statement to count and display
-  // the number of computations.
-  //static long callCount = 0;
-  public static void transform(double[] x,double[] y){
-
-  //The following values for the cosine table were obtained
-  // by running the program with the call to the cos
-  // function intact, printing the cosine of the argument,
-  // capturing it, and then inserting the values here.
-  // These are the cosine values used for transforming a
-  // series containing 8 values.
+   public static void transform(double[] x,double[] y){
  
   double[][] cosineTable = {
                             {1.0,
@@ -126,14 +80,8 @@ public class ForwardDCT02{
                             -0.19509032201612858}
                           };
 
-    //Enable the following statement to count and display
-    // the number of computations.
-    //long count = 0;
-    int N = x.length;
-    if(N == 8){
-      //Run optimized version by using cosine lookup table 
-      // instead of computing cosine values for each
-      // iteration.
+      int N=8;
+
       //Outer loop interates on frequency values.
       for(int k=0; k < N;k++){
         double sum = 0.0;
@@ -155,37 +103,7 @@ public class ForwardDCT02{
         }//end else
         y[k] = sum*alpha*sqrt(2.0/N);
       }//end outer loop
-    }else{
-      //Run regular version by computing cosine values for
-      // each iteration.
-      //Outer loop interates on frequency values.
-      for(int k=0; k < N;k++){
-        double sum = 0.0;
-        //Inner loop iterates on time-series values.
-        for(int n=0; n < N; n++){
-          double arg = PI*k*(2.0*n+1)/(2*N);
-          double cosine = cos(arg);
-          double product = x[n]*cosine;
-          sum += product;
-          //Enable the following statement to count and 
-          //display the number of computations.
-          //count++;
-        }//end inner loop
-  
-        double alpha;
-        if(k == 0){
-          alpha = 1.0/sqrt(2);
-        }else{
-          alpha = 1;
-        }//end else
-        y[k] = sum*alpha*sqrt(2.0/N);
-      }//end outer loop
-    }//end else
-    //Enable the following two statements to count and 
-    //display the number of computations.
-    //callCount++;
-    //System.out.println(callCount + " " + count + " " 
-    //                   + callCount*count);
+    
   }//end transform method
   //-----------------------------------------------------//
-}//end class ForwardDCT02
+}//end class ForwardDCT

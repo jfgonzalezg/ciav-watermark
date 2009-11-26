@@ -1,22 +1,14 @@
 package mark;
-import java.awt.font.NumericShaper;
-
 
 public class MainClass {
 
-	static String NumeImag = "lena.jpg";
+	static String NumeImag = "tren.jpg";
 	
 	public static void main(String[] args) {
-		
-		
+				
 		Imagi img = new Imagi();
 		img.loadImage(NumeImag);
-	//	img.RgbComp();
-		img.start1();
-		
-		//int all[][][] = new int[img.imgCols][img.imgRows][4];
-		
-		
+		img.start1(); // face dct si idct si >> test.jpg		
 
 	}
 }
