@@ -2,13 +2,13 @@
 
 public class MainClass {
 
-	static String NumeImag = "tren.jpg";
+	static String NumeImag;
 	
 	public static void main(String[] args) {
 				
-		Imagi img = new Imagi();
-		img.loadImage(NumeImag);
-		img.start1(); // face dct si idct si >> test.jpg		
-
+		Interfata f = new Interfata("Fereastra principala");
+		f.initializare();
+		f.show();
+		NumeImag = f.getSursa();		
 	}
 }

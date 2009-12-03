@@ -1,7 +1,10 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import javax.imageio.ImageIO;
 
@@ -79,6 +82,7 @@ public class Imagi  {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("Imagine creata! ");
 	}
 	
 	public void start2(){
@@ -117,12 +121,18 @@ public class Imagi  {
 	}
 
 	public void loadImage(String imag) {
+		
+		
 
 		try {
-			img = ImageIO.read(this.getClass().getResource(imag));
-		} catch (IOException e) {
-		}
+			 InputStream is = new BufferedInputStream(
+			            new FileInputStream(imag));
 
+			img = ImageIO.read(is);
+		} catch (IOException e) {
+			System.out.println("Incarcare esuata !!!!");
+		}
+		System.out.println("Imagine incarcata! ");
 		imgCols = img.getWidth();
 		imgRows = img.getHeight();
 
@@ -147,10 +157,12 @@ public class Imagi  {
 				Rgb[i][j][2] = (pixel >> 8) & 0xff;		//green
 				Rgb[i][j][3] = (pixel) & 0xff;			//blue
 				vect[k]= img.getRGB(i, j);
-				System.out.println(Rgb[i][j][0]+" "+Rgb[i][j][1]+" "+Rgb[i][j][2]+" "+Rgb[i][j][3]+ " k="+k);
+				//System.out.println(Rgb[i][j][0]+" "+Rgb[i][j][1]+" "+Rgb[i][j][2]+" "+Rgb[i][j][3]+ " k="+k);
 				k++;
 			}
+			
 		}
+		System.out.println("Impartire Rgb ...");
 
 	}
 
