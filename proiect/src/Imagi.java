@@ -1,11 +1,9 @@
-
-
-import java.awt.image.BufferedImage;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.*;
 import java.io.IOException;
 import java.util.Arrays;
-
 import javax.imageio.ImageIO;
-
 
 public class Imagi  {
 
@@ -18,6 +16,7 @@ public class Imagi  {
 	int[] OneDim = new int[imgCols*imgRows];
 	int N=8;
 	int zigzag[][];
+	
 	
 	public void start1(){
 		int[][][] Dct = new int[imgCols][imgRows][4];
@@ -200,9 +199,9 @@ public class Imagi  {
 					get8x8Block(plane,segRow,segCol);
 				forwardXform8x8Block(the8x8Plane);
 			
-			//	double[][] temp = the8x8Plane;
+				double[][] temp = the8x8Plane;
 				// cream un oob ZigZag
-			//	the8x8Plane=ZigZag(temp);
+				the8x8Plane=ZigZag(temp);
 				
 				insert8x8Block(plane,the8x8Plane,segRow,segCol);
 			}//end inner loop
@@ -636,6 +635,9 @@ public class Imagi  {
 		return temp;		
 	}
 
-
+    
+    
 }//sfarsitul clasei
+
+
 
