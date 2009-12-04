@@ -28,8 +28,6 @@ public class Imagi  {
 	Interface interf = new Interface();
 	String sursa_iomagine=null;
 	Date dateNow = new Date ();
-
-	
 	
 	public void start1(){
 		int[][][] Dct = new int[imgCols][imgRows][4];
@@ -38,22 +36,25 @@ public class Imagi  {
 		double[][] redPlane = extractPlane(working3D,1);
 		redPlane = extractPlane(working3D,1);
 		//Do DCT 
-		forwardXformPlane(redPlane);
+		forwardXformPlane(redPlane,1);
 		//Insert the color plane back into the 3D array. 
 		insertPlane(working3D,redPlane,1);
 
 		redPlane = extractPlane(working3D,2);
 		//Do DCT 
-		forwardXformPlane(redPlane);
+		forwardXformPlane(redPlane,1);
 		//Insert the color plane back into the 3D array. 
 		insertPlane(working3D,redPlane,2);
 
 		redPlane = extractPlane(working3D,3);
 		//Do DCT 
-		forwardXformPlane(redPlane);
+		forwardXformPlane(redPlane,1);
 		//Insert the color plane back into the 3D array. 
 		insertPlane(working3D,redPlane,3);
-
+		//facem watermark la imagine si mai ramane de facut IDCT
+		
+		
+		
 		redPlane = extractPlane(working3D,1);
 		inverseXformPlane(redPlane);
 		insertPlane(working3D,redPlane,1);
@@ -109,19 +110,19 @@ public class Imagi  {
 		double[][] redPlane = extractPlane(working3D,1);
 		redPlane = extractPlane(working3D,1);
 		//Do DCT 
-		forwardXformPlane(redPlane);
+		forwardXformPlane(redPlane,1);
 		//Insert the color plane back into the 3D array. 
 		insertPlane(working3D,redPlane,1);
 
 		redPlane = extractPlane(working3D,2);
 		//Do DCT 
-		forwardXformPlane(redPlane);
+		forwardXformPlane(redPlane,1);
 		//Insert the color plane back into the 3D array. 
 		insertPlane(working3D,redPlane,2);
 
 		redPlane = extractPlane(working3D,3);
 		//Do DCT 
-		forwardXformPlane(redPlane);
+		forwardXformPlane(redPlane,1);
 		//Insert the color plane back into the 3D array. 
 		insertPlane(working3D,redPlane,3);
 		
@@ -238,7 +239,7 @@ public class Imagi  {
 		return new3D;
 	}//end copyToDouble
 
-	void forwardXformPlane(double[][] plane){
+	void forwardXformPlane(double[][] plane,int sel){
 		int pixRows = plane.length;
 		int pixCols = plane[0].length;
 		//Loop on rows of 8x8 blocks
@@ -249,10 +250,11 @@ public class Imagi  {
 					get8x8Block(plane,segRow,segCol);
 				forwardXform8x8Block(the8x8Plane);
 			
-				double[][] temp = the8x8Plane;
-				// cream un oob ZigZag
-				the8x8Plane=modifica8x8Plane(temp);
-				
+				if (sel==1){ //facem si watermark daca sel = 1 //sel=0 numai DCT
+					double[][] temp = the8x8Plane;
+					// cream un oob ZigZag
+					the8x8Plane=modifica8x8Plane(temp);
+				}
 				insert8x8Block(plane,the8x8Plane,segRow,segCol);
 			}//end inner loop
 		}//end outer loop
