@@ -59,19 +59,23 @@ public class Interface extends JFrame implements ActionListener{
 				//---- menuItem1 ----
 				menuItem1.setText("Browse");
 				menu1.add(menuItem1);
+				menuItem1.addActionListener(this);
 
 				//---- menuItem2 ----
 				menuItem2.setText("DCT");
-				menu1.add(menuItem2);			
+				menu1.add(menuItem2);	
+				menuItem2.addActionListener(this);
 
 				//---- menuItem3 ----
 				menuItem3.setText("DWT");
 				menu1.add(menuItem3);
 				menu1.addSeparator();
+				menuItem3.addActionListener(this);
 
 				//---- menuItem4 ----
 				menuItem4.setText("Exit");
 				menu1.add(menuItem4);
+				menuItem4.addActionListener(this);
 			}
 			menuBar1.add(menu1);
 
@@ -82,10 +86,12 @@ public class Interface extends JFrame implements ActionListener{
 				//---- menuItem5 ----
 				menuItem5.setText("About");
 				menu2.add(menuItem5);
+				menuItem5.addActionListener(this);
 				menu2.addSeparator();
 
 				//---- menuItem6 ----
 				menuItem6.setText("Manual");
+				menuItem6.addActionListener(this);
 				menu2.add(menuItem6);
 			}
 			menuBar1.add(menu2);

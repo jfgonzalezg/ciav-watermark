@@ -86,7 +86,7 @@ public class Imagi  {
 
 		try {
 			ImageIO.write(img_output, "JPEG", new java.io.File(sursa_iomagine));
-			System.out.println("watermarked "+ sursa_iomagine);
+	//		System.out.println("watermarked "+ sursa_iomagine);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -144,15 +144,15 @@ public class Imagi  {
 		  int dotPos = imag.lastIndexOf(".");
 		  String strExtension = imag.substring(dotPos + 1);
 		  String strFilename = imag.substring(0, dotPos);	
-		  System.out.println("strFilename : "+strFilename);
-		  System.out.println("strExtension : "+strExtension);
+	//	  System.out.println("strFilename : "+strFilename);
+	//	  System.out.println("strExtension : "+strExtension);
 		  
 		  // vrem sa adaugam si data		  
 		  SimpleDateFormat dateformatYYYYMMDD = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 		  StringBuilder nowYYYYMMDD = new StringBuilder( dateformatYYYYMMDD.format( dateNow ) );
 		  
 		  this.sursa_iomagine = strFilename + "_watermarked_" + nowYYYYMMDD + "." + strExtension;
-		  System.out.println("sursa este: "+sursa_iomagine);
+		//  System.out.println("sursa este: "+sursa_iomagine);
 		  
 
 		try {
@@ -686,6 +686,6 @@ public class Imagi  {
     
     
 }//sfarsitul clasei
-
+ 
 
 
