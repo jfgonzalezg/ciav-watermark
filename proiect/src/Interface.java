@@ -55,14 +55,14 @@ public class Interface extends JFrame implements ActionListener{
 			//======== menu1 ========
 			{
 				menu1.setText("File");
-
-				//---- menuItem2 ----
-				menuItem2.setText("DCT");
-				menu1.add(menuItem2);
-
+				
 				//---- menuItem1 ----
 				menuItem1.setText("Browse");
 				menu1.add(menuItem1);
+
+				//---- menuItem2 ----
+				menuItem2.setText("DCT");
+				menu1.add(menuItem2);			
 
 				//---- menuItem3 ----
 				menuItem3.setText("DWT");
