@@ -11,6 +11,7 @@ public class MainClass {
 	//	f.initializare();
 	//	f.show();
 		g.show();
+		//g.label1.setText("Proba");
 	//	NumeImag = f.getSursa();		
 	}
 }

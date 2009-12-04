@@ -8,11 +8,10 @@ import java.io.FilenameFilter;
 
 import javax.swing.*;
 
-
-
 /**
  * @author aa aa
  */
+
 public class Interface extends JFrame implements ActionListener{
 	public Interface() {
 		initComponents();
@@ -24,6 +23,7 @@ public class Interface extends JFrame implements ActionListener{
 	}
 	
 	static String sursa;
+	public String status="Status";
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -93,7 +93,7 @@ public class Interface extends JFrame implements ActionListener{
 		setJMenuBar(menuBar1);
 
 		//---- label1 ----
-		label1.setText("Status");
+		label1.setText(status);
 		label1.setBackground(Color.white);
 		contentPane.add(label1, BorderLayout.SOUTH);
 
@@ -142,7 +142,7 @@ public class Interface extends JFrame implements ActionListener{
 	private JMenu menu2;
 	private JMenuItem menuItem5;
 	private JMenuItem menuItem6;
-	private JLabel label1;
+	public JLabel label1;
 	private JPanel panel1;
 	private JButton button1;
 	private JButton button2;
@@ -172,19 +172,20 @@ public class Interface extends JFrame implements ActionListener{
 	//	System.out.println("Fisierul ales este: " + fd.getFile()+ " " +fd.getDirectory());
 		setSursa(fd.getDirectory()+fd.getFile());
 	//	System.out.println("Sursa este: " + sursa);	
+		label1.setText("Imagine incarcata! ");
 		}// if Browse
 		
 		if (command.equals("DCT")) 
 		{				
-			System.out.println("Sursa: " + sursa);
-			startPrelucrare(sursa);
+			//System.out.println("Sursa: " + sursa);
+			startPrelucrare(sursa, this);
 		}// if Start
 		
 	}
 	
-	public void startPrelucrare(String sursa)
+	public void startPrelucrare(String sursa,Interface g)
 	{
-	Imagi img = new Imagi();
+	Imagi img = new Imagi(g);
 	img.loadImage(sursa);
 	img.start1(); // face dct si idct si >> test.jpg
 	}
@@ -197,5 +198,13 @@ public class Interface extends JFrame implements ActionListener{
 	}
 	public void setSursa(String sursa) {
 		this.sursa = sursa;
+	}
+	
+	// get si set pentru status
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

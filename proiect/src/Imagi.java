@@ -2,10 +2,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
+
 import javax.imageio.ImageIO;
 
 public class Imagi  {
@@ -19,6 +23,10 @@ public class Imagi  {
 	int[] OneDim = new int[imgCols*imgRows];
 	int N=8;
 	int zigzag[][];
+	Interface interf = new Interface();
+	String sursa_iomagine=null;
+	Date dateNow = new Date ();
+
 	
 	
 	public void start1(){
@@ -77,14 +85,21 @@ public class Imagi  {
 		}
 
 		try {
-			ImageIO.write(img_output, "JPEG", new java.io.File("test.jpg"));
+			ImageIO.write(img_output, "JPEG", new java.io.File(sursa_iomagine));
+			System.out.println("watermarked "+ sursa_iomagine);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("Imagine creata! ");
+		interf.label1.setText("Imagine creata! ");
+		
 	}
 	
+	public Imagi(Interface interf) {
+		this.interf = interf;
+	}
+
 	public void start2(){
 		int[][][] Dct = new int[imgCols][imgRows][4];
 
@@ -122,7 +137,23 @@ public class Imagi  {
 
 	public void loadImage(String imag) {
 		
+		this.sursa_iomagine = imag;
 		
+		// vrem sa adaugam _watermarked
+		  File oldfile = new File(imag);
+		  int dotPos = imag.lastIndexOf(".");
+		  String strExtension = imag.substring(dotPos + 1);
+		  String strFilename = imag.substring(0, dotPos);	
+		  System.out.println("strFilename : "+strFilename);
+		  System.out.println("strExtension : "+strExtension);
+		  
+		  // vrem sa adaugam si data		  
+		  SimpleDateFormat dateformatYYYYMMDD = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+		  StringBuilder nowYYYYMMDD = new StringBuilder( dateformatYYYYMMDD.format( dateNow ) );
+		  
+		  this.sursa_iomagine = strFilename + "_watermarked_" + nowYYYYMMDD + "." + strExtension;
+		  System.out.println("sursa este: "+sursa_iomagine);
+		  
 
 		try {
 			 InputStream is = new BufferedInputStream(
@@ -131,8 +162,11 @@ public class Imagi  {
 			img = ImageIO.read(is);
 		} catch (IOException e) {
 			System.out.println("Incarcare esuata !!!!");
+			interf.label1.setText("Incarcare esuata !!!!");
+			
 		}
 		System.out.println("Imagine incarcata! ");
+		interf.label1.setText("Imagine incarcata! ");
 		imgCols = img.getWidth();
 		imgRows = img.getHeight();
 
@@ -163,6 +197,8 @@ public class Imagi  {
 			
 		}
 		System.out.println("Impartire Rgb ...");
+		interf.label1.setText("Impartire Rgb ...");
+		
 
 	}
 
@@ -622,7 +658,7 @@ public class Imagi  {
 		temp = convert2dTo1d(imput);
 		
 		// ordonam coeficientii matricei 8x8 in ordine crescatoare
-		Arrays.sort(temp);
+		//Arrays.sort(temp);
 		//afiseazaArray1D(temp);
 		
 		// creem matricea de output, cu coeficientii in zig-zag din vectorul temp care este sortat
