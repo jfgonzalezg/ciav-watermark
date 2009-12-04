@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Random;
+
 
 import javax.imageio.ImageIO;
 
@@ -249,12 +251,39 @@ public class Imagi  {
 			
 				double[][] temp = the8x8Plane;
 				// cream un oob ZigZag
-				the8x8Plane=ZigZag(temp);
+				the8x8Plane=modifica8x8Plane(temp);
 				
 				insert8x8Block(plane,the8x8Plane,segRow,segCol);
 			}//end inner loop
 		}//end outer loop
 	}//end forwardXformPlane
+
+	private double[][] modifica8x8Plane(double[][] temp) {
+		
+		Random val_random = new Random();
+		int valoare = val_random.nextInt(10);
+		
+		double suma = 0.0;
+		
+		for (int i=0;i<8;i++)
+			for (int j=0;j<8;j++)
+				suma+=temp[i][j];
+		
+		double media = suma/64;	
+		//media = media+0.2*media;
+	//	System.out.println("Media: "+media);
+		
+		for (int i=0;i<8;i++)
+			for (int j=0;j<8;j++)
+			{
+				if(temp[i][j]>(media-0.2*media) && 
+						temp[i][j]<(media+0.2*media))
+				{
+				temp[i][j]=temp[i][j] + valoare;
+				}
+			}
+		return temp;
+	}
 
 	void forwardXform8x8Block(double[][] the8x8Block){
 
@@ -590,8 +619,7 @@ public class Imagi  {
     	for (int i=0;i<N;i++) {
     		for (int j=0;j<N;j++) 
     			zz[zigzag[i][j]]=m[i][j];
-    	}
-      	
+    	}      	
     	return zz;
     }  
     
