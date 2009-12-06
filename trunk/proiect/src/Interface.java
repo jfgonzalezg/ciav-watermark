@@ -187,13 +187,27 @@ public class Interface extends JFrame implements ActionListener{
 			startPrelucrare(sursa, this);
 		}// if Start
 		
+		if (command.equals("DWT")) 
+		{				
+			//System.out.println("Sursa: " + sursa);
+			startPrelucrareDWT(sursa, this);
+		}// if Start
+		
 	}
 	
 	public void startPrelucrare(String sursa,Interface g)
 	{
-	Imagi img = new Imagi(g);
-	img.loadImage(sursa);
-	img.start1(); // face dct si idct si >> test.jpg
+		Imagi img = new Imagi(g);
+		img.loadImage(sursa);
+		img.start1(); 
+	}
+	
+	public void startPrelucrareDWT(String sursa, Interface g)
+	{
+//		// mai trebuie lucrat
+//		//Imagi img = new Imagi(g);
+//		img.loadImage(sursa);
+//		img.start1(); 
 	}
 	
 
