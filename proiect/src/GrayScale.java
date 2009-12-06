@@ -15,7 +15,10 @@ import java.io.BufferedInputStream;
 
 public class GrayScale {
 
-	static int[] Rgb = new int[64*64];
+	static int[] Rgb;
+	
+	int h;
+	int w;
 	
     public static double lum(Color color) {
         int r = color.getRed();
@@ -30,23 +33,28 @@ public class GrayScale {
     	DwtConv imag1= new DwtConv();
     	BufferedImage imac = new BufferedImage(64, 64, 1);
     	
-    	imac = imag1.readImage("C:/poza_f.jpg");
-    	
-		grayScale(imac);
+    	imac = imag1.readImage("C:/baboon.jpg");
+    	GrayScale gra =new GrayScale();
+		gra.grayScale(imac);
 		
-
+		imag1.writeImage(imac, "C:/noua.jpg", "jpg");
     }
 
-	public static int[][] grayScale(BufferedImage imac) {
+	public int[][] grayScale(BufferedImage imac) {
+		
+		h=imac.getHeight();
+		w=imac.getWidth();
+		Rgb = new int[w*h];
+		
 		int k=0;
-		for (int i = 0; i < 64; i++) {
-			for (int j = 0; j < 64; j++) {
+		for (int i = 0; i < h; i++) {
+			for (int j = 0; j < w; j++) {
 				Rgb[k] = imac.getRGB(j, i);
 				k++;
 				}
 			}
     	
-		for (int m = 0; m < 64*64; m++) {
+		for (int m = 0; m < h*w; m++) {
 			int  red = (Rgb[m] & 0x00ff0000) >> 16;
 			int  green = (Rgb[m] & 0x0000ff00) >> 8;
 			int  blue = Rgb[m] & 0x000000ff;
@@ -54,11 +62,11 @@ public class GrayScale {
 		}
 		
 		
-		int[][] ImRgb=new int[64][64];
+		int[][] ImRgb=new int[h][w];
 		
 		int h=0;
-		for (int i = 0; i < 64; i++) {
-			for (int j = 0; j < 64; j++) {
+		for (int i = 0; i < h; i++) {
+			for (int j = 0; j < w; j++) {
 				ImRgb[i][j]=Rgb[h];
 				h++;
 				System.out.print(ImRgb[i][j]+" ");
