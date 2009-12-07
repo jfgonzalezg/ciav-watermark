@@ -258,6 +258,7 @@ public class Interface extends JFrame implements ActionListener{
 		if (a == 1){
 			ImageIcon icon = new ImageIcon(sursaIomagine);
 			label.setIcon(scale(icon.getImage(), 0.5));
+			label.setText("Original");
 		}
 		if (a == 0) {
 			ImageIcon icon1 = new ImageIcon(sursaIomagine);
