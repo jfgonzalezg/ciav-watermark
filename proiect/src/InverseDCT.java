@@ -40,14 +40,7 @@ import static java.lang.Math.*;
 public class InverseDCT{
 
   public static void transform(double[] y,double[] x){
-    
-  //The following values for the cosine table were obtained
-  // by running the program with the call to the cos
-  // function intact, printing the cosine of the argument,
-  // capturing it, and then inserting the values here.
-  // These are the cosine values used for transforming a
-  // series containing 8 values.
-                                
+
     double[][] cosineTable = {
                               {1.0,
                               0.9807852804032304,
@@ -172,6 +165,5 @@ public class InverseDCT{
         
       }//end outer loop
     }//end else
-  }//end transform method
-  //-----------------------------------------------------//
-}//end class InverseDCT
+  }
+}
