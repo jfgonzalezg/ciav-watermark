@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
 
@@ -39,9 +40,12 @@ public class Interface extends JFrame implements ActionListener{
 		menuItem6 = new JMenuItem();
 		label1 = new JLabel();
 		panel1 = new JPanel();
+		panel2 = new JPanel();
 		button1 = new JButton();
 		button2 = new JButton();
 		button4 = new JButton();
+		label = new JLabel();
+		label0 = new JLabel();
 
 		//======== this ========
 		setTitle("Watermark program");
@@ -130,8 +134,15 @@ public class Interface extends JFrame implements ActionListener{
 			button4.setText("DWT");
 			button4.addActionListener(this);
 			panel1.add(button4);
+			
+			//---- panel2 imaginea dct
+			panel2.setBackground(Color.LIGHT_GRAY);
+			panel2.add(label0);
+			panel2.add(label);
 		}
+		
 		contentPane.add(panel1, BorderLayout.WEST);
+		contentPane.add(panel2, BorderLayout.NORTH);
 		pack();
 		setLocationRelativeTo(null);
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -149,7 +160,10 @@ public class Interface extends JFrame implements ActionListener{
 	private JMenuItem menuItem5;
 	private JMenuItem menuItem6;
 	public JLabel label1;
+	public JLabel label;
+	public JLabel label0;
 	private JPanel panel1;
+	public JPanel panel2;
 	private JButton button1;
 	private JButton button2;
 	private JButton button4;
@@ -178,6 +192,7 @@ public class Interface extends JFrame implements ActionListener{
 	//	System.out.println("Fisierul ales este: " + fd.getFile()+ " " +fd.getDirectory());
 		setSursa(fd.getDirectory()+fd.getFile());
 	//	System.out.println("Sursa este: " + sursa);	
+		afis(sursa, 0);
 		label1.setText("Imagine incarcata! ");
 		}// if Browse
 		
@@ -187,29 +202,25 @@ public class Interface extends JFrame implements ActionListener{
 			startPrelucrare(sursa, this);
 		}// if Start
 		
-		if (command.equals("DWT")) 
-		{				
-			//System.out.println("Sursa: " + sursa);
-			startPrelucrareDWT(sursa, this);
-		}// if Start
-		
 	}
 	
 	public void startPrelucrare(String sursa,Interface g)
 	{
-		Imagi img = new Imagi(g);
-		img.loadImage(sursa);
-		img.start1(); 
+	Imagi img = new Imagi(g);
+	img.loadImage(sursa);
+	img.start1(); // face dct si idct si >> test.jpg
 	}
 	
-	public void startPrelucrareDWT(String sursa, Interface g)
-	{
-//		// mai trebuie lucrat
-//		//Imagi img = new Imagi(g);
-//		img.loadImage(sursa);
-//		img.start1(); 
-	}
-	
+	public ImageIcon scale(Image src, double scale) {
+	        int w = (int)(scale*src.getWidth(this));
+	        int h = (int)(scale*src.getHeight(this));
+	        int type = BufferedImage.TYPE_INT_RGB;
+	        BufferedImage dst = new BufferedImage(w, h, type);
+	        Graphics2D g2 = dst.createGraphics();
+	        g2.drawImage(src, 0, 0, w, h, this);
+	        g2.dispose();
+	        return new ImageIcon(dst);
+	    }
 
 	
 	// get si set pentru sursa
@@ -227,4 +238,19 @@ public class Interface extends JFrame implements ActionListener{
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public void afis(String sursaIomagine, int a) {
+		// TODO Auto-generated method stub
+		if (a == 1){
+			ImageIcon icon = new ImageIcon(sursaIomagine);
+			label.setIcon(scale(icon.getImage(), 0.5));
+		}
+		if (a == 0) {
+			ImageIcon icon1 = new ImageIcon(sursaIomagine);
+			label0.setIcon(scale(icon1.getImage(), 0.5));
+		}
+	}
+	
+	
+	
 }
