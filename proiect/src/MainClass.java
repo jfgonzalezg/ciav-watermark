@@ -8,6 +8,7 @@ public class MainClass {
 				
 		//Interfata f = new Interfata("Fereastra principala");
 		Interface g = new Interface();
+		g.setSize(700,700);
 	//	f.initializare();
 	//	f.show();
 		g.show();
