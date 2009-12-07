@@ -108,6 +108,7 @@ public class Imagi  {
 		Dct = copyToInt(working3D);		
 
 		creazaImagine(Dct);
+		
 	}
 
 	private void creazaImagine(int[][][] Dct) {
