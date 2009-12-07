@@ -49,7 +49,7 @@ public class Imagi  {
 
 		redPlane = extractPlane(working3D,3);		
 		forwardXformPlane(redPlane,1);		
-		insertPlane(working3D,redPlane,3);
+		insertPlane(working3D,redPlane,3);		
 
 		//Facem DCT a 2 oara fara watermark pt a scoate watermarkul
 		redPlane = extractPlane(working3DDCT,1);		
@@ -73,8 +73,8 @@ public class Imagi  {
 					working3DDCT[i][j][k]=working3D[i][j][k]-working3DDCT[i][j][k];					
 				}
 			}
-		}
-
+		}	
+		
 		// inversam watermarkul pt a vedea ce am adaugat
 		redPlane = extractPlane(working3DDCT,1);
 		inverseXformPlane(redPlane);
@@ -90,7 +90,7 @@ public class Imagi  {
 
 		Dct = copyToInt(working3DDCT);		
 
-		creazaImagine(Dct);		
+		creazaImagine(Dct);			
 
 		// inversa dct + watermark pt a obtine imaginea finala
 		redPlane = extractPlane(working3D,1);
