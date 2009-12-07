@@ -1,3 +1,6 @@
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.*;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -9,6 +12,9 @@ import java.util.Random;
 
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class Imagi  {
 
@@ -19,7 +25,7 @@ public class Imagi  {
 	int vect[];
 	int[] OneDim = new int[imgCols*imgRows];
 	int N=8;
-	
+
 	// utilizate pentru a crea poza de output
 	Interface interf = new Interface();
 	String sursa_iomagine=null;
@@ -30,7 +36,7 @@ public class Imagi  {
 
 		double[][][] working3D = copyToDouble(Rgb);
 		double[][][] working3DDCT = copyToDouble(Rgb);
-		
+
 		//Facem DCT + watermark
 		double[][] redPlane = extractPlane(working3D,1);
 		redPlane = extractPlane(working3D,1);		
@@ -116,7 +122,7 @@ public class Imagi  {
 		StringBuilder nowYYYYMMDD = new StringBuilder( dateformatYYYYMMDD.format( dateNow ) );
 
 		this.sursa_iomagine = strFilename + "_watermarked_" + nowYYYYMMDD + "." + strExtension;
-		
+
 
 		OneDim = convertToOneDim(Dct, imgCols, imgRows);	
 
@@ -135,6 +141,9 @@ public class Imagi  {
 		} catch (IOException e) {			
 			e.printStackTrace();
 		}		
+
+		interf.afis(sursa_iomagine,1); // afiseaza imag in interfata
+		//this.getContentPane().add(panel);
 		interf.label1.setText("Imagine creata! ");
 
 	}
@@ -159,18 +168,14 @@ public class Imagi  {
 
 			img = ImageIO.read(is);
 		} catch (IOException e) {
-			System.out.println("Incarcare esuata !!!!");
 			interf.label1.setText("Incarcare esuata !!!!");
 
 		}
-		System.out.println("Imagine incarcata! ");
+
 		interf.label1.setText("Imagine incarcata! ");
 		imgCols = img.getWidth();
 		imgRows = img.getHeight();
-
 		Ima(imgCols, imgRows);
-
-
 		RgbComp();
 		Rgb=convertToThreeDim(vect, imgCols, imgRows);
 	}
@@ -278,7 +283,7 @@ public class Imagi  {
 
 		int imgRows = 8;
 		int imgCols = 8;
-		
+
 		for(int row = 0;row < imgRows;row++){
 			double[] theRow = extractRow(the8x8Block,row);
 
@@ -287,7 +292,7 @@ public class Imagi  {
 
 			insertRow(the8x8Block,theXform,row);
 		}
-		
+
 		for(int col = 0;col < imgCols;col++){
 			double[] theCol = extractCol(the8x8Block,col);
 
@@ -341,7 +346,7 @@ public class Imagi  {
 		}
 		return output;
 	}
-	
+
 	void insertRow(double[][] colorPlane,
 			double[] theRow,
 			int row){
@@ -350,7 +355,7 @@ public class Imagi  {
 			colorPlane[row][col] = theRow[col];
 		}
 	}
-	
+
 	double[][] get8x8Block(double[][] colorPlane,
 			int segRow,
 			int segCol){
@@ -367,7 +372,7 @@ public class Imagi  {
 		}
 		return the8x8Block;
 	}
-	
+
 	public void insertPlane(double[][][] threeDPixDouble,
 			double[][] colorPlane,
 			int plane){
@@ -385,9 +390,9 @@ public class Imagi  {
 
 	int[] convertToOneDim(
 			int[][][] data,int imgCols,int imgRows){
-		
+
 		int[] oneDPix = new int[imgCols * imgRows * 4];
-		
+
 		for(int row = 0,cnt = 0;row < imgRows;row++){
 			for(int col = 0;col < imgCols;col++){
 				oneDPix[cnt] = ((data[row][col][0] << 24)
@@ -428,18 +433,18 @@ public class Imagi  {
 
 	int[][][] convertToThreeDim(
 			int[] oneDPix,int imgCols,int imgRows){
-		
+
 		int[][][] data =
 			new int[imgRows][imgCols][4];
 
 		for(int row = 0;row < imgRows;row++){
-			
+
 			int[] aRow = new int[imgCols];
 			for(int col = 0; col < imgCols;col++){
 				int element = row * imgCols + col;
 				aRow[col] = oneDPix[element];
 			}
-			
+
 			for(int col = 0;col < imgCols;col++){
 				//Alpha data
 				data[row][col][0] = (aRow[col] >> 24)
@@ -461,7 +466,7 @@ public class Imagi  {
 	void clipToZero(double[][] colorPlane){
 		int numImgRows = colorPlane.length;
 		int numImgCols = colorPlane[0].length;
-		
+
 		for(int row = 0;row < numImgRows;row++){
 			for(int col = 0;col < numImgCols;col++){
 				if(colorPlane[row][col] < 0){
@@ -470,11 +475,11 @@ public class Imagi  {
 			}
 		}
 	}
-	
+
 	void clipTo255(double[][] colorPlane){
 		int numImgRows = colorPlane.length;
 		int numImgCols = colorPlane[0].length;
-		
+
 		for(int row = 0;row < numImgRows;row++){
 			for(int col = 0;col < numImgCols;col++){
 				if(colorPlane[row][col] > 255){
@@ -489,7 +494,7 @@ public class Imagi  {
 		int pixCols = plane[0].length;
 
 		for(int segRow = 0;segRow < pixRows/8;segRow++){
-			
+
 			for(int segCol = 0;segCol < pixCols/8;segCol++){
 				double[][] the8x8Block = 
 					get8x8Block(plane,segRow,segCol);
@@ -503,7 +508,7 @@ public class Imagi  {
 
 		int imgRows = 8;
 		int imgCols = 8;
-		
+
 		for(int col = 0;col < imgCols;col++){
 			double[] theXform = extractCol(the8x8Block,col);
 
@@ -512,22 +517,22 @@ public class Imagi  {
 
 			insertCol(the8x8Block,theCol,col);
 		}
-		
+
 		for(int row = 0;row < imgRows;row++){
 			double[] theXform = extractRow(the8x8Block,row);
 
 			double[] theRow = new double[theXform.length];			
 			InverseDCT.transform(theXform,theRow);
-		
+
 			insertRow(the8x8Block,theRow,row);
 		}
-		
+
 		clipToZero(the8x8Block);
 		clipTo255(the8x8Block);
 	}
-	
 
-	
+
+
 	/*public double[] zigZag(double[][] m) {
 		double[] zz = new double[N*N];
 		for (int i=0;i<N;i++) {
@@ -624,7 +629,11 @@ public class Imagi  {
 		}
 		return temp;		
 	}
-*/
+	 */
+
+
+
+
 
 
 }//sfarsitul clasei
