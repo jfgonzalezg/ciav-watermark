@@ -141,8 +141,8 @@ public class Interface extends JFrame implements ActionListener{
 			panel2.add(label);
 		}
 		
-		contentPane.add(panel1, BorderLayout.WEST);
-		contentPane.add(panel2, BorderLayout.NORTH);
+		contentPane.add(panel1, BorderLayout.NORTH);
+		contentPane.add(panel2, BorderLayout.CENTER);
 		pack();
 		setLocationRelativeTo(null);
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
