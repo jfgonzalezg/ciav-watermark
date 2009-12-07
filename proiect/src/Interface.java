@@ -46,7 +46,10 @@ public class Interface extends JFrame implements ActionListener{
 		button4 = new JButton();
 		label = new JLabel();
 		label0 = new JLabel();
+	    
 
+	      
+	    
 		//======== this ========
 		setTitle("Watermark program");
 		setResizable(false);
@@ -135,6 +138,8 @@ public class Interface extends JFrame implements ActionListener{
 			button4.addActionListener(this);
 			panel1.add(button4);
 			
+			
+			
 			//---- panel2 imaginea dct
 			panel2.setBackground(Color.LIGHT_GRAY);
 			panel2.add(label0);
@@ -143,6 +148,7 @@ public class Interface extends JFrame implements ActionListener{
 		
 		contentPane.add(panel1, BorderLayout.NORTH);
 		contentPane.add(panel2, BorderLayout.CENTER);
+		
 		pack();
 		setLocationRelativeTo(null);
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -167,6 +173,7 @@ public class Interface extends JFrame implements ActionListener{
 	private JButton button1;
 	private JButton button2;
 	private JButton button4;
+	public JProgressBar progress;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 	
 	// 
@@ -199,7 +206,7 @@ public class Interface extends JFrame implements ActionListener{
 			label.setIcon(null);
 		}
 		System.out.println(fd.getFile());
-		if (fd.getFile() == null)
+		if (fd.getFile() == null && sursa==null)
 			label1.setText("Incarcati imaginea ");
 		else{
 			afis(sursa, 0);
@@ -210,10 +217,11 @@ public class Interface extends JFrame implements ActionListener{
 		if (command.equals("DCT")) 
 		{				
 			//System.out.println("Sursa: " + sursa);
-			if (sursa=="")
+			if (sursa==null)
 				label1.setText("Incarcati imaginea !");
-			else
+			else{
 				startPrelucrare(sursa, this);
+				}
 		}// if Start
 		
 	}
@@ -258,7 +266,7 @@ public class Interface extends JFrame implements ActionListener{
 		if (a == 1){
 			ImageIcon icon = new ImageIcon(sursaIomagine);
 			label.setIcon(scale(icon.getImage(), 0.5));
-			label.setText("Original");
+			
 		}
 		if (a == 0) {
 			ImageIcon icon1 = new ImageIcon(sursaIomagine);
