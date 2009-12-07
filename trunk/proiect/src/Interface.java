@@ -23,7 +23,7 @@ public class Interface extends JFrame implements ActionListener{
 		});
 	}
 	
-	static String sursa;
+	static String sursa=null;
 	public String status="Status";
 
 	private void initComponents() {
@@ -189,17 +189,31 @@ public class Interface extends JFrame implements ActionListener{
 			});
 		fd.show(); //facem vizibila fereastra de dialog
 		
-	//	System.out.println("Fisierul ales este: " + fd.getFile()+ " " +fd.getDirectory());
-		setSursa(fd.getDirectory()+fd.getFile());
-	//	System.out.println("Sursa este: " + sursa);	
-		afis(sursa, 0);
-		label1.setText("Imagine incarcata! ");
+		
+		if (fd.getFile() != null)
+				setSursa(fd.getDirectory()+fd.getFile());
+
+		
+		
+		if (label != null){
+			label.setIcon(null);
+		}
+		System.out.println(fd.getFile());
+		if (fd.getFile() == null)
+			label1.setText("Incarcati imaginea ");
+		else{
+			afis(sursa, 0);
+			label1.setText("Imagine incarcata! --> "+fd.getFile());
+			}
 		}// if Browse
 		
 		if (command.equals("DCT")) 
 		{				
 			//System.out.println("Sursa: " + sursa);
-			startPrelucrare(sursa, this);
+			if (sursa=="")
+				label1.setText("Incarcati imaginea !");
+			else
+				startPrelucrare(sursa, this);
 		}// if Start
 		
 	}
@@ -249,6 +263,7 @@ public class Interface extends JFrame implements ActionListener{
 			ImageIcon icon1 = new ImageIcon(sursaIomagine);
 			label0.setIcon(scale(icon1.getImage(), 0.5));
 		}
+		pack();
 	}
 	
 	
