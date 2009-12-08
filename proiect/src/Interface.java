@@ -45,6 +45,7 @@ public class Interface extends JFrame implements ActionListener{
 		button2 = new JButton();
 		button4 = new JButton();
 		label = new JLabel();
+		labe = new JLabel();
 		label0 = new JLabel();
 	    
 
@@ -144,6 +145,7 @@ public class Interface extends JFrame implements ActionListener{
 			panel2.setBackground(Color.LIGHT_GRAY);
 			panel2.add(label0);
 			panel2.add(label);
+			panel2.add(labe);
 		}
 		
 		contentPane.add(panel1, BorderLayout.NORTH);
@@ -167,6 +169,7 @@ public class Interface extends JFrame implements ActionListener{
 	private JMenuItem menuItem6;
 	public JLabel label1;
 	public JLabel label;
+	public JLabel labe;
 	public JLabel label0;
 	private JPanel panel1;
 	public JPanel panel2;
@@ -204,6 +207,7 @@ public class Interface extends JFrame implements ActionListener{
 		
 		if (label != null){
 			label.setIcon(null);
+			labe.setIcon(null);
 		}
 		System.out.println(fd.getFile());
 		if (fd.getFile() == null && sursa==null)
@@ -281,6 +285,13 @@ public class Interface extends JFrame implements ActionListener{
 
 	public void afis(String sursaIomagine, int a) {
 		// TODO Auto-generated method stub
+		
+		if (a == 2){
+			ImageIcon icon = new ImageIcon(sursaIomagine);
+			labe.setIcon(scale(icon.getImage(), 0.5));
+			
+		}
+		
 		if (a == 1){
 			ImageIcon icon = new ImageIcon(sursaIomagine);
 			label.setIcon(scale(icon.getImage(), 0.5));
