@@ -6,6 +6,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 
 import javax.swing.*;
 
@@ -249,17 +250,21 @@ public class Interface extends JFrame implements ActionListener{
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 			JOptionPane.showMessageDialog(frame,"Program de watermark folosind DCT si DWT \n\nAutori: \n Gheorghinca Vlad\n Nenciu Alecsandru" , 
-				    "Message", JOptionPane.PLAIN_MESSAGE);
+				    "Message", JOptionPane.INFORMATION_MESSAGE);
 		}// if About
 		
 		if (command.equals("Manual")) 
-		{		
-			
-		}// if Start
+		{					
+			String file = "./../manual.pdf";
+			try {
+				Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + file );
+				System.out.println("file:" + file);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}// if Manual
 	}
-	
-	
-
 	
 	public void startPrelucrare(String sursa,Interface g)
 	{
