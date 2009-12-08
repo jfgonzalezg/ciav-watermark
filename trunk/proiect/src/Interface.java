@@ -224,13 +224,31 @@ public class Interface extends JFrame implements ActionListener{
 				}
 		}// if Start
 		
+		if (command.equals("DWT")) 
+		{				
+			//System.out.println("Sursa: " + sursa);
+			if (sursa==null)
+				label1.setText("Incarcati imaginea !");
+			else{
+				startPrelucrareDWT(sursa, this);
+				}
+		}// if Start
+		
 	}
 	
 	public void startPrelucrare(String sursa,Interface g)
 	{
-	Imagi img = new Imagi(g);
-	img.loadImage(sursa);
-	img.start1(); // face dct si idct si >> test.jpg
+		Imagi img = new Imagi(g);
+		img.loadImage(sursa);
+		img.start1(); // face dct si idct si >> test.jpg
+	}
+
+	public void startPrelucrareDWT(String sursa,Interface g)
+	{
+		DwtConv img2 = new DwtConv();
+		img2.setInterf(this);
+		img2.setSursa_iomagine(sursa);
+		img2.MakeDwtWatermark(sursa, sursa+"watermark"+".jpg");
 	}
 	
 	public ImageIcon scale(Image src, double scale) {
