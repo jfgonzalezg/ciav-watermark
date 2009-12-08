@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -16,7 +17,11 @@ public class DwtConv {
 
 	int hi;
 	int wi;
-
+	
+	// creem outputul
+	public Interface interf = new Interface();
+	public String sursa_iomagine=null;
+	Date dateNow = new Date ();
 
 	//filtru Haar
 	double[] Hi_D= new double[]{-0.7071 , 0.7071};
@@ -32,9 +37,17 @@ public class DwtConv {
 	double[][] z;
 	double[][] y;
 		
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		
 		MakeDwtWatermark("C:/baboon.jpg","C:/baboon_watermark.jpg");
+	}*/
+	
+	// set si get pentru atributele care ne intereseaza
+	public void setInterf(Interface interf) {
+		this.interf = interf;
+	}
+	public void setSursa_iomagine(String sursaIomagine) {
+		sursa_iomagine = sursaIomagine;
 	}
 
 	public static void MakeDwtWatermark(String inputImageFilePath,
@@ -463,27 +476,7 @@ public class DwtConv {
 		}		
 
 		return return1;
-	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 	
 	public int[][] grayScale(BufferedImage imac) {
 		
