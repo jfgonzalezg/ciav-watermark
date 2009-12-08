@@ -241,8 +241,25 @@ public class Interface extends JFrame implements ActionListener{
 		if (command.equals("Exit")) 
 		{				
 			System.exit(0);
-		}// if Start		
+		}// if Exit	
+		
+		if (command.equals("About")) 
+		{		
+			JFrame frame = new JFrame();
+			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+			JOptionPane.showMessageDialog(frame,"Program de watermark folosind DCT si DWT \n\nAutori: \n Gheorghinca Vlad\n Nenciu Alecsandru" , 
+				    "Message", JOptionPane.PLAIN_MESSAGE);
+		}// if About
+		
+		if (command.equals("Manual")) 
+		{		
+			
+		}// if Start
 	}
+	
+	
+
 	
 	public void startPrelucrare(String sursa,Interface g)
 	{
