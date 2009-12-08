@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 
 public class DwtConv {
@@ -50,7 +51,7 @@ public class DwtConv {
 		sursa_iomagine = sursaIomagine;
 	}
 
-	public static void MakeDwtWatermark(String inputImageFilePath,
+	public void MakeDwtWatermark(String inputImageFilePath,
 			String outputDwt) {
 		DwtConv imageGrayer = new DwtConv();
 		
@@ -116,8 +117,10 @@ public class DwtConv {
 				output.setRGB(j, i, colorInt);
 			}
 		}
-
+		
 		imageGrayer.writeImage(output, outputDwt, "jpg");
+	//	ImageIcon imag = new ImageIcon(outputDwt);
+		interf.afis(outputDwt,2);
 	}
 
 	public int[][] creazaKey(DwtConv imageGrayer, boolean b) {
