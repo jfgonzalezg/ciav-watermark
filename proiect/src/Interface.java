@@ -226,7 +226,7 @@ public class Interface extends JFrame implements ActionListener{
 			else{
 				startPrelucrare(sursa, this);
 				}
-		}// if Start
+		}// if DCT
 		
 		if (command.equals("DWT")) 
 		{				
@@ -236,8 +236,12 @@ public class Interface extends JFrame implements ActionListener{
 			else{
 				startPrelucrareDWT(sursa, this);
 				}
-		}// if Start
+		}// if DWT
 		
+		if (command.equals("Exit")) 
+		{				
+			System.exit(0);
+		}// if Start		
 	}
 	
 	public void startPrelucrare(String sursa,Interface g)
