@@ -255,7 +255,7 @@ public class Interface extends JFrame implements ActionListener{
 		
 		if (command.equals("Manual")) 
 		{					
-			String file = "./../manual.pdf";
+			String file = "./manual.pdf";
 			try {
 				Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + file );
 				System.out.println("file:" + file);
