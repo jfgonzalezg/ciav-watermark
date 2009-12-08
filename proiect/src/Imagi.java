@@ -109,6 +109,7 @@ public class Imagi  {
 
 		creazaImagine(Dct);
 		
+	
 	}
 
 	private void creazaImagine(int[][][] Dct) {
@@ -143,6 +144,8 @@ public class Imagi  {
 			e.printStackTrace();
 		}		
 
+		
+		
 		interf.afis(sursa_iomagine,1); // afiseaza imag in interfata
 		//this.getContentPane().add(panel);
 		interf.label1.setText("Imagine creata! ");
@@ -258,7 +261,7 @@ public class Imagi  {
 
 		Random val_random = new Random();
 		int valoare = val_random.nextInt(100);
-		System.out.println(valoare);	
+		//System.out.println(valoare);	
 
 		double suma = 0.0;
 
